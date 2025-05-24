@@ -1,0 +1,22 @@
+/* Стили для нативных HTML select элементов */
+select {
+  background-color: white !important;
+  color: black !important;
+}
+
+select option {
+  background-color: white !important;
+  color: black !important;
+}
+
+/* Стили для выпадающего меню */
+.select-content {
+  background-color: white !important;
+  color: black !important;
+}
+
+/* Переопределение переменных темы для выпадающих меню */
+:root {
+  --popover: 0 0% 100% !important;
+  --popover-foreground: 222.2 84% 4.9% !important;
+}
