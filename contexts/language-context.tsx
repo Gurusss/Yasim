@@ -389,7 +389,7 @@ const translations: Record<Language, Record<string, string>> = {
       "",
 
     // New developments
-    "new-dev-projects-ru": "",
+    "new-dev-projects-ru": "Новостройки",
     "new-dev-projects": "New Projects",
     "new-dev-projects-subtitle-ru":
       "",

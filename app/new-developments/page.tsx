@@ -23,6 +23,23 @@ export default function NewDevelopmentsPage() {
   const [sortOption, setSortOption] = useState("featured")
   const [activeTab, setActiveTab] = useState("all")
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  
+  // Состояния для работы фильтров как на странице "Объекты"
+  const [selectedType, setSelectedType] = useState<string[]>([])
+  const [selectedArea, setSelectedArea] = useState<string[]>([])
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([])
+  const [minBeds, setMinBeds] = useState<string>("")
+  const [minBaths, setMinBaths] = useState<string>("")
+  const [selectedDealType, setSelectedDealType] = useState<string[]>([])
+  const [expandedSections, setExpandedSections] = useState({
+    propertyType: true,
+    dealType: true,
+    priceRange: true,
+    bedrooms: true,
+    bathrooms: true,
+    area: true,
+    features: true
+  })
 
   // Toggle property type selection
   const togglePropertyType = (type: string) => {
@@ -43,6 +60,52 @@ export default function NewDevelopmentsPage() {
     setSelectedPrice("")
     setSelectedBedrooms("")
     setSelectedCompletion("")
+    setSelectedType([])
+    setSelectedArea([])
+    setSelectedFeatures([])
+    setMinBeds("")
+    setMinBaths("")
+    setSelectedDealType([])
+  }
+  
+  // Функции для работы с фильтрами как на странице "Объекты"
+  const toggleSection = (section: keyof typeof expandedSections) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }))
+  }
+  
+  const handleTypeChange = (type: string) => {
+    setSelectedType(prev => 
+      prev.includes(type) ? prev.filter(item => item !== type) : [...prev, type]
+    )
+  }
+  
+  const handleAreaChange = (area: string) => {
+    setSelectedArea(prev => 
+      prev.includes(area) ? prev.filter(item => item !== area) : [...prev, area]
+    )
+  }
+  
+  const handleFeatureChange = (feature: string) => {
+    setSelectedFeatures(prev => 
+      prev.includes(feature) ? prev.filter(item => item !== feature) : [...prev, feature]
+    )
+  }
+  
+  const handleBedroomChange = (beds: string) => {
+    setMinBeds(beds)
+  }
+  
+  const handleBathroomChange = (baths: string) => {
+    setMinBaths(baths)
+  }
+  
+  const handleDealTypeChange = (dealType: string) => {
+    setSelectedDealType(prev => 
+      prev.includes(dealType) ? prev.filter(item => item !== dealType) : [...prev, dealType]
+    )
   }
 
   // Properties data
@@ -241,20 +304,20 @@ export default function NewDevelopmentsPage() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden"
+              className="md:hidden p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-6 w-6"
+                className="h-7 w-7"
               >
                 <line x1="4" x2="20" y1="12" y2="12" />
                 <line x1="4" x2="20" y1="6" y2="6" />
@@ -265,35 +328,35 @@ export default function NewDevelopmentsPage() {
         </div>
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-background/95 backdrop-blur p-4">
-            <nav className="flex flex-col gap-4">
-              <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+          <div className="md:hidden fixed top-16 left-0 w-full bg-white border-b z-40">
+            <nav className="flex flex-col gap-4 container py-4">
+              <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2">
                 {t("home")}
               </Link>
               <Link
                 href="/properties"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
               >
                 {t("properties")}
               </Link>
-              <Link href="/new-developments" className="text-sm font-medium transition-colors hover:text-primary">
+              <Link href="/new-developments" className="text-sm font-medium transition-colors hover:text-primary text-left pl-2">
                 {t("new-developments")}
               </Link>
               <Link
                 href="/investments"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
               >
                 {t("investments")}
               </Link>
               <Link
                 href="/about"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
               >
                 {t("about")}
               </Link>
               <Link
                 href="/contact"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
               >
                 {t("contact")}
               </Link>
@@ -334,31 +397,28 @@ export default function NewDevelopmentsPage() {
                 <div className="sticky top-24 space-y-6">
                   <div className="rounded-lg border p-4">
                     <div className="mb-4 flex items-center justify-between">
-                      <h3 className="font-medium">{t("filter-properties")}</h3>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="h-auto p-0 text-sm font-medium"
-                        onClick={resetFilters}
-                      >
-                        {t("reset-filters")}
+                      <h3 className="font-medium">{t("filters")}</h3>
+                      <Button variant="ghost" size="sm" className="h-auto p-0 text-sm font-medium" onClick={resetFilters}>
+                        {t("reset")}
                       </Button>
                     </div>
                     <div className="space-y-4">
-                      {/* Property Type Filter */}
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between">
+                        <div 
+                          className="flex items-center justify-between cursor-pointer" 
+                          onClick={() => toggleSection('propertyType')}
+                        >
                           <label className="text-sm font-medium">{t("property-type")}</label>
-                          <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                          <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.propertyType ? '' : 'transform rotate-180'}`} />
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 ${expandedSections.propertyType ? '' : 'hidden'}`}>
                           <div className="flex items-center space-x-2">
                             <input
                               type="checkbox"
                               id="type-apartment"
                               className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedPropertyType.includes("apartment")}
-                              onChange={() => togglePropertyType("apartment")}
+                              checked={selectedType.includes("Apartment")}
+                              onChange={() => handleTypeChange("Apartment")}
                             />
                             <label htmlFor="type-apartment" className="text-sm">
                               {t("apartment")}
@@ -369,8 +429,8 @@ export default function NewDevelopmentsPage() {
                               type="checkbox"
                               id="type-villa"
                               className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedPropertyType.includes("villa")}
-                              onChange={() => togglePropertyType("villa")}
+                              checked={selectedType.includes("Villa")}
+                              onChange={() => handleTypeChange("Villa")}
                             />
                             <label htmlFor="type-villa" className="text-sm">
                               {t("villa")}
@@ -379,197 +439,277 @@ export default function NewDevelopmentsPage() {
                           <div className="flex items-center space-x-2">
                             <input
                               type="checkbox"
-                              id="type-condo"
+                              id="type-penthouse"
                               className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedPropertyType.includes("condo")}
-                              onChange={() => togglePropertyType("condo")}
+                              checked={selectedType.includes("Penthouse")}
+                              onChange={() => handleTypeChange("Penthouse")}
                             />
-                            <label htmlFor="type-condo" className="text-sm">
-                              {t("condo")}
+                            <label htmlFor="type-penthouse" className="text-sm">
+                              {t("penthouse")}
                             </label>
                           </div>
                           <div className="flex items-center space-x-2">
                             <input
                               type="checkbox"
-                              id="type-townhouse"
+                              id="type-land"
                               className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedPropertyType.includes("townhouse")}
-                              onChange={() => togglePropertyType("townhouse")}
+                              checked={selectedType.includes("Land")}
+                              onChange={() => handleTypeChange("Land")}
                             />
-                            <label htmlFor="type-townhouse" className="text-sm">
-                              {t("townhouse")}
+                            <label htmlFor="type-land" className="text-sm">
+                              {t("land")}
                             </label>
                           </div>
                         </div>
                       </div>
 
-                      {/* Location Filter */}
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <label className="text-sm font-medium">{t("location")}</label>
-                          <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                        <div 
+                          className="flex items-center justify-between cursor-pointer" 
+                          onClick={() => toggleSection('dealType')}
+                        >
+                          <label className="text-sm font-medium">{t("deal-type")}</label>
+                          <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.dealType ? '' : 'transform rotate-180'}`} />
                         </div>
-                        <div className="space-y-1">
+                        <div className={`space-y-1 ${expandedSections.dealType ? '' : 'hidden'}`}>
                           <div className="flex items-center space-x-2">
                             <input
                               type="checkbox"
-                              id="location-cherng-talay"
+                              id="deal-buy"
                               className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedLocation.includes(t("bright-phuket-location"))}
-                              onChange={() => toggleLocation(t("bright-phuket-location"))}
+                              checked={selectedDealType.includes("buy")}
+                              onChange={() => handleDealTypeChange("buy")}
                             />
-                            <label htmlFor="location-cherng-talay" className="text-sm">
-                              {t("cherng-talay")}
+                            <label htmlFor="deal-buy" className="text-sm">
+                              {t("buy")}
                             </label>
                           </div>
                           <div className="flex items-center space-x-2">
                             <input
                               type="checkbox"
-                              id="location-naiton"
+                              id="deal-rent"
                               className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedLocation.includes(t("vista-del-mar-location"))}
-                              onChange={() => toggleLocation(t("vista-del-mar-location"))}
+                              checked={selectedDealType.includes("rent")}
+                              onChange={() => handleDealTypeChange("rent")}
                             />
-                            <label htmlFor="location-naiton" className="text-sm">
-                              {t("naiton")}
+                            <label htmlFor="deal-rent" className="text-sm">
+                              {t("rent")}
                             </label>
                           </div>
                           <div className="flex items-center space-x-2">
                             <input
                               type="checkbox"
-                              id="location-sakhu"
+                              id="deal-invest"
                               className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedLocation.includes(t("title-serenity-location"))}
-                              onChange={() => toggleLocation(t("title-serenity-location"))}
+                              checked={selectedDealType.includes("invest")}
+                              onChange={() => handleDealTypeChange("invest")}
                             />
-                            <label htmlFor="location-sakhu" className="text-sm">
-                              {t("sakhu")}
+                            <label htmlFor="deal-invest" className="text-sm">
+                              {t("invest")}
                             </label>
                           </div>
                         </div>
                       </div>
 
-                      {/* Price Range Filter */}
+                      {/* Area Filter */}
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between">
+                        <div 
+                          className="flex items-center justify-between cursor-pointer" 
+                          onClick={() => toggleSection('area')}
+                        >
+                          <label className="text-sm font-medium">{t("area")}</label>
+                          <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.area ? '' : 'transform rotate-180'}`} />
+                        </div>
+                        <div className={`space-y-1 ${expandedSections.area ? '' : 'hidden'}`}>
+                          <div className="flex items-center space-x-2">
+                            <input
+                              type="checkbox"
+                              id="area-bang-tao"
+                              className="h-4 w-4 rounded border-gray-300"
+                              checked={selectedArea.includes("bang-tao")}
+                              onChange={() => handleAreaChange("bang-tao")}
+                            />
+                            <label htmlFor="area-bang-tao" className="text-sm">
+                              Bang Tao
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <input
+                              type="checkbox"
+                              id="area-kata"
+                              className="h-4 w-4 rounded border-gray-300"
+                              checked={selectedArea.includes("kata")}
+                              onChange={() => handleAreaChange("kata")}
+                            />
+                            <label htmlFor="area-kata" className="text-sm">
+                              Kata
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <input
+                              type="checkbox"
+                              id="area-kamala"
+                              className="h-4 w-4 rounded border-gray-300"
+                              checked={selectedArea.includes("kamala")}
+                              onChange={() => handleAreaChange("kamala")}
+                            />
+                            <label htmlFor="area-kamala" className="text-sm">
+                              Kamala
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <input
+                              type="checkbox"
+                              id="area-nai-harn"
+                              className="h-4 w-4 rounded border-gray-300"
+                              checked={selectedArea.includes("nai-harn")}
+                              onChange={() => handleAreaChange("nai-harn")}
+                            />
+                            <label htmlFor="area-nai-harn" className="text-sm">
+                              Nai Harn
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <input
+                              type="checkbox"
+                              id="area-patong"
+                              className="h-4 w-4 rounded border-gray-300"
+                              checked={selectedArea.includes("patong")}
+                              onChange={() => handleAreaChange("patong")}
+                            />
+                            <label htmlFor="area-patong" className="text-sm">
+                              Patong
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div 
+                          className="flex items-center justify-between cursor-pointer" 
+                          onClick={() => toggleSection('priceRange')}
+                        >
                           <label className="text-sm font-medium">{t("price-range")}</label>
-                          <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                          <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.priceRange ? '' : 'transform rotate-180'}`} />
                         </div>
-                        <div className="space-y-1">
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="radio"
-                              id="price-any"
-                              name="price-range"
-                              className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedPrice === ""}
-                              onChange={() => setSelectedPrice("")}
-                            />
-                            <label htmlFor="price-any" className="text-sm">
-                              {t("any-price")}
-                            </label>
+                        <div className={`grid grid-cols-2 gap-2 ${expandedSections.priceRange ? '' : 'hidden'}`}>
+                          <div>
+                            <Input placeholder={t("min")} type="number" className="text-sm" />
                           </div>
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="radio"
-                              id="price-up-to-300k"
-                              name="price-range"
-                              className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedPrice === "up-to-300k"}
-                              onChange={() => setSelectedPrice("up-to-300k")}
-                            />
-                            <label htmlFor="price-up-to-300k" className="text-sm">
-                              {t("up-to-300k")}
-                            </label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="radio"
-                              id="price-300k-500k"
-                              name="price-range"
-                              className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedPrice === "300k-500k"}
-                              onChange={() => setSelectedPrice("300k-500k")}
-                            />
-                            <label htmlFor="price-300k-500k" className="text-sm">
-                              {t("300k-500k")}
-                            </label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="radio"
-                              id="price-500k-1m"
-                              name="price-range"
-                              className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedPrice === "500k-1m"}
-                              onChange={() => setSelectedPrice("500k-1m")}
-                            />
-                            <label htmlFor="price-500k-1m" className="text-sm">
-                              {t("500k-1m")}
-                            </label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <input
-                              type="radio"
-                              id="price-above-1m"
-                              name="price-range"
-                              className="h-4 w-4 rounded border-gray-300"
-                              checked={selectedPrice === "above-1m"}
-                              onChange={() => setSelectedPrice("above-1m")}
-                            />
-                            <label htmlFor="price-above-1m" className="text-sm">
-                              {t("above-1m")}
-                            </label>
+                          <div>
+                            <Input placeholder={t("max")} type="number" className="text-sm" />
                           </div>
                         </div>
                       </div>
 
-                      {/* Bedrooms Filter */}
                       <div className="space-y-2">
-                        <div className="flex items-center justify-between">
+                        <div 
+                          className="flex items-center justify-between cursor-pointer" 
+                          onClick={() => toggleSection('bedrooms')}
+                        >
                           <label className="text-sm font-medium">{t("bedrooms")}</label>
-                          <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                          <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.bedrooms ? '' : 'transform rotate-180'}`} />
                         </div>
-                        <div className="flex flex-wrap gap-2">
+                        <div className={`flex flex-wrap gap-2 ${expandedSections.bedrooms ? '' : 'hidden'}`}>
                           <Button
-                            variant={selectedBedrooms === "" ? "default" : "outline"}
+                            variant={minBeds === "" ? "default" : "outline"}
                             size="sm"
                             className="h-8 rounded-full"
-                            onClick={() => setSelectedBedrooms("")}
+                            onClick={() => handleBedroomChange("")}
                           >
-                            {t("any-bedrooms")}
+                            {t("any")}
                           </Button>
                           <Button
-                            variant={selectedBedrooms === "1-bedroom" ? "default" : "outline"}
+                            variant={minBeds === "1" ? "default" : "outline"}
                             size="sm"
                             className="h-8 rounded-full"
-                            onClick={() => setSelectedBedrooms("1-bedroom")}
+                            onClick={() => handleBedroomChange("1")}
                           >
-                            {t("1-bedroom")}
+                            1+
                           </Button>
                           <Button
-                            variant={selectedBedrooms === "2-bedrooms" ? "default" : "outline"}
+                            variant={minBeds === "2" ? "default" : "outline"}
                             size="sm"
                             className="h-8 rounded-full"
-                            onClick={() => setSelectedBedrooms("2-bedrooms")}
+                            onClick={() => handleBedroomChange("2")}
                           >
-                            {t("2-bedrooms")}
+                            2+
                           </Button>
                           <Button
-                            variant={selectedBedrooms === "3-bedrooms" ? "default" : "outline"}
+                            variant={minBeds === "3" ? "default" : "outline"}
                             size="sm"
                             className="h-8 rounded-full"
-                            onClick={() => setSelectedBedrooms("3-bedrooms")}
+                            onClick={() => handleBedroomChange("3")}
                           >
-                            {t("3-bedrooms")}
+                            3+
                           </Button>
                           <Button
-                            variant={selectedBedrooms === "4-bedrooms" ? "default" : "outline"}
+                            variant={minBeds === "4" ? "default" : "outline"}
                             size="sm"
                             className="h-8 rounded-full"
-                            onClick={() => setSelectedBedrooms("4-bedrooms")}
+                            onClick={() => handleBedroomChange("4")}
                           >
-                            {t("4-bedrooms")}
+                            4+
+                          </Button>
+                          <Button
+                            variant={minBeds === "5" ? "default" : "outline"}
+                            size="sm"
+                            className="h-8 rounded-full"
+                            onClick={() => handleBedroomChange("5")}
+                          >
+                            5+
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div 
+                          className="flex items-center justify-between cursor-pointer" 
+                          onClick={() => toggleSection('bathrooms')}
+                        >
+                          <label className="text-sm font-medium">{t("bathrooms")}</label>
+                          <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.bathrooms ? '' : 'transform rotate-180'}`} />
+                        </div>
+                        <div className={`flex flex-wrap gap-2 ${expandedSections.bathrooms ? '' : 'hidden'}`}>
+                          <Button
+                            variant={minBaths === "" ? "default" : "outline"}
+                            size="sm"
+                            className="h-8 rounded-full"
+                            onClick={() => handleBathroomChange("")}
+                          >
+                            {t("any")}
+                          </Button>
+                          <Button
+                            variant={minBaths === "1" ? "default" : "outline"}
+                            size="sm"
+                            className="h-8 rounded-full"
+                            onClick={() => handleBathroomChange("1")}
+                          >
+                            1+
+                          </Button>
+                          <Button
+                            variant={minBaths === "2" ? "default" : "outline"}
+                            size="sm"
+                            className="h-8 rounded-full"
+                            onClick={() => handleBathroomChange("2")}
+                          >
+                            2+
+                          </Button>
+                          <Button
+                            variant={minBaths === "3" ? "default" : "outline"}
+                            size="sm"
+                            className="h-8 rounded-full"
+                            onClick={() => handleBathroomChange("3")}
+                          >
+                            3+
+                          </Button>
+                          <Button
+                            variant={minBaths === "4" ? "default" : "outline"}
+                            size="sm"
+                            className="h-8 rounded-full"
+                            onClick={() => handleBathroomChange("4")}
+                          >
+                            4+
                           </Button>
                         </div>
                       </div>
@@ -713,62 +853,151 @@ export default function NewDevelopmentsPage() {
                           </Badge>
                         </div>
                         <div className="p-6 md:col-span-2">
-                          <div className="flex flex-col h-full">
-                            <div className="mb-4">
-                              <div className="flex items-center justify-between mb-2">
-                                <h3 className="text-xl font-bold">{property.title}</h3>
-                                <Badge variant="outline">{property.type}</Badge>
+                          {property.id === 1 ? (
+                            <div className="flex flex-col h-full">
+                              <div className="mb-4">
+                                <div className="flex items-center justify-between mb-2">
+                                  <h3 className="text-xl font-bold">🏖️ Пляжные виллы</h3>
+                                  <Badge variant="outline">{property.type}</Badge>
+                                </div>
+                                <p className="text-muted-foreground mb-4">Bang Tao, Laguna</p>
+                                <p className="text-sm mb-4">Эксклюзивные виллы на первой линии с частными пляжами и максимальной доходностью от аренды</p>
                               </div>
-                              <p className="text-muted-foreground mb-4">{property.location}</p>
-                              <p className="text-sm mb-4">{property.description}</p>
-                            </div>
 
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                              <div>
-                                <p className="text-sm text-muted-foreground">{t("starting-price")}</p>
-                                <p className="font-bold text-primary">${formatPrice(property.price)}</p>
-                                <p className="text-xs text-muted-foreground">
-                                  ${formatPrice(property.pricePerSqm)} {t("per-sqm")}
-                                </p>
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Стартовая сумма:</p>
+                                  <p className="font-bold text-primary">от $600K</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Годовая доходность:</p>
+                                  <p className="font-medium">12-15% годовых</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Окупаемость:</p>
+                                  <p className="font-medium">5-7 лет</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Локации:</p>
+                                  <p className="font-medium">Bang Tao, Laguna</p>
+                                </div>
                               </div>
-                              <div>
-                                <p className="text-sm text-muted-foreground">{t("bedrooms")}</p>
-                                <p className="font-medium">{property.bedrooms}</p>
-                              </div>
-                              <div>
-                                <p className="text-sm text-muted-foreground">{t("total-units")}</p>
-                                <p className="font-medium">
-                                  {property.totalUnits} {t("units")}
-                                </p>
-                              </div>
-                              <div>
-                                <p className="text-sm text-muted-foreground">{t("unit-sizes")}</p>
-                                <p className="font-medium">
-                                  {property.unitSize} {t("sqm")}
-                                </p>
-                              </div>
-                            </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                              <div>
-                                <p className="text-sm font-medium mb-1">{t("property-features")}</p>
-                                <p className="text-sm text-muted-foreground">{property.features}</p>
+                              <div className="grid grid-cols-1 gap-4 mb-6">
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Эксклюзивные виллы на первой линии с частными пляжами и максимальной доходностью от аренды</p>
+                                </div>
                               </div>
-                              <div>
-                                <p className="text-sm font-medium mb-1">{t("investment-potential")}</p>
-                                <p className="text-sm text-muted-foreground">{property.investmentPotential}</p>
+                              <div className="flex flex-col sm:flex-row gap-3 mt-auto">
+                                <Link href={`/properties/property-detail?id=${property.id}`} className="flex-1">
+                                  <Button className="w-full">Подробнее</Button>
+                                </Link>
+                                <Button variant="secondary" className="flex-1">
+                                  Запросить инфо
+                                </Button>
                               </div>
                             </div>
+                          ) : property.id === 2 ? (
+                            <div className="flex flex-col h-full">
+                              <div className="mb-4">
+                                <div className="flex items-center justify-between mb-2">
+                                  <h3 className="text-xl font-bold">🏢 Кондоминиумы</h3>
+                                  <Badge variant="outline">{property.type}</Badge>
+                                </div>
+                                <p className="text-muted-foreground mb-4">Patong, Kata, Karon</p>
+                                <p className="text-sm mb-4">Современные апартаменты в престижных комплексах с развитой инфраструктурой и стабильным доходом</p>
+                              </div>
 
-                            <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-                              <Link href={`/properties/property-detail?id=${property.id}`} className="flex-1">
-                                <Button className="w-full">{t("view-details")}</Button>
-                              </Link>
-                              <Button variant="outline" className="flex-1">
-                                {t("request-info")}
-                              </Button>
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Стартовая сумма:</p>
+                                  <p className="font-bold text-primary">от $150K</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Годовая доходность:</p>
+                                  <p className="font-medium">10-12% годовых</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Окупаемость:</p>
+                                  <p className="font-medium">4-5 лет</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Локации:</p>
+                                  <p className="font-medium">Patong, Kata, Karon</p>
+                                </div>
+                              </div>
+                              
+                              <div className="grid grid-cols-1 gap-4 mb-6">
+                                <div>
+                                  <p className="text-sm text-muted-foreground">Современные апартаменты в престижных комплексах с развитой инфраструктурой и стабильным доходом</p>
+                                </div>
+                              </div>
+                              <div className="flex flex-col sm:flex-row gap-3 mt-auto">
+                                <Link href={`/properties/property-detail?id=${property.id}`} className="flex-1">
+                                  <Button className="w-full">Подробнее</Button>
+                                </Link>
+                                <Button variant="secondary" className="flex-1">
+                                  Запросить инфо
+                                </Button>
+                              </div>
                             </div>
-                          </div>
+                          ) : (
+                            <div className="flex flex-col h-full">
+                              <div className="mb-4">
+                                <div className="flex items-center justify-between mb-2">
+                                  <h3 className="text-xl font-bold">{property.title}</h3>
+                                  <Badge variant="outline">{property.type}</Badge>
+                                </div>
+                                <p className="text-muted-foreground mb-4">{property.location}</p>
+                                <p className="text-sm mb-4">{property.description}</p>
+                              </div>
+
+                              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                <div>
+                                  <p className="text-sm text-muted-foreground">{t("starting-price")}</p>
+                                  <p className="font-bold text-primary">${formatPrice(property.price)}</p>
+                                  <p className="text-xs text-muted-foreground">
+                                    ${formatPrice(property.pricePerSqm)} {t("per-sqm")}
+                                  </p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">{t("bedrooms")}</p>
+                                  <p className="font-medium">{property.bedrooms}</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">{t("total-units")}</p>
+                                  <p className="font-medium">
+                                    {property.totalUnits} {t("units")}
+                                  </p>
+                                </div>
+                                <div>
+                                  <p className="text-sm text-muted-foreground">{t("unit-sizes")}</p>
+                                  <p className="font-medium">
+                                    {property.unitSize} {t("sqm")}
+                                  </p>
+                                </div>
+                              </div>
+
+                              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                                <div>
+                                  <p className="text-sm font-medium mb-1">{t("property-features")}</p>
+                                  <p className="text-sm text-muted-foreground">{property.features}</p>
+                                </div>
+                                <div>
+                                  <p className="text-sm font-medium mb-1">{t("investment-potential")}</p>
+                                  <p className="text-sm text-muted-foreground">{property.investmentPotential}</p>
+                                </div>
+                              </div>
+                              <div className="flex flex-col sm:flex-row gap-3 mt-auto">
+                                <Link href={`/properties/property-detail?id=${property.id}`} className="flex-1">
+                                  <Button className="w-full">Подробнее</Button>
+                                </Link>
+                                <Button variant="secondary" className="flex-1">
+                                  Запросить инфо
+                                </Button>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </Card>

@@ -45,11 +45,11 @@ export default function PropertyCard({ title, location, price, beds, baths, area
           </div>
         </Link>
       </div>
-      <CardContent className="p-4">
-        <div className="space-y-2">
+      <CardContent className="p-5">
+        <div className="space-y-4">
           <div className="flex items-start justify-between">
-            <div>
-              <h3 className="font-bold">{title}</h3>
+            <div className="space-y-2">
+              <h3 className="font-bold text-lg">{title}</h3>
               <div className="flex items-center text-sm text-muted-foreground">
                 <MapPin className="mr-1 h-3.5 w-3.5" />
                 {location}
@@ -60,7 +60,7 @@ export default function PropertyCard({ title, location, price, beds, baths, area
               <div className="font-bold text-primary">{price}</div>
             </div>
           </div>
-          <div className="flex items-center justify-between border-t pt-2">
+          <div className="flex items-center justify-between border-t pt-3 mt-2">
             <div className="flex items-center space-x-4">
               <div className="flex items-center text-sm">
                 <BedDouble className="mr-1 h-4 w-4 text-muted-foreground" />

@@ -77,18 +77,18 @@ export default function ContactPage() {
           <div className="flex items-center gap-4">
             <LanguageSwitcher />
             <ProfileForm />
-            <Button variant="ghost" size="icon" className="md:hidden" onClick={toggleMobileMenu}>
+            <Button variant="ghost" size="icon" className="md:hidden p-2" onClick={toggleMobileMenu}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 0 24"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-6 w-6"
+                className="h-7 w-7"
               >
                 <line x1="4" x2="20" y1="12" y2="12" />
                 <line x1="4" x2="20" y1="6" y2="6" />
@@ -99,7 +99,7 @@ export default function ContactPage() {
         </div>
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden absolute top-16 left-0 w-full bg-background border-b z-50">
+          <div className="md:hidden fixed top-16 left-0 w-full bg-white border-b z-40">
             <div className="container py-4 flex flex-col gap-2">
               <Button variant="outline" size="sm" className="w-full justify-center">
                 {t("sign-in")}

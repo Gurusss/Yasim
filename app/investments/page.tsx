@@ -94,18 +94,18 @@ export default function InvestmentsPage() {
           <div className="flex items-center gap-4">
             <LanguageSwitcher />
             <ProfileForm />
-            <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            <Button variant="ghost" size="icon" className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-6 w-6"
+                className="h-7 w-7"
               >
                 <line x1="4" x2="20" y1="12" y2="12" />
                 <line x1="4" x2="20" y1="6" y2="6" />
@@ -116,35 +116,35 @@ export default function InvestmentsPage() {
         </div>
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-16 left-0 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b z-50">
+          <div className="md:hidden fixed top-16 left-0 w-full bg-white border-b z-40">
             <div className="container py-4 flex flex-col gap-4">
-              <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+              <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2">
                 {t("home")}
               </Link>
               <Link
                 href="/properties"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
               >
                 {t("properties")}
               </Link>
               <Link
                 href="/new-developments"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
               >
-                {language === "ru" ? t("new-dev-projects-ru") : t("new-dev-projects")}
+                {t("new-developments")}
               </Link>
-              <Link href="/investments" className="text-sm font-medium transition-colors hover:text-primary">
+              <Link href="/investments" className="text-sm font-medium transition-colors hover:text-primary text-left pl-2">
                 {t("investments")}
               </Link>
               <Link
                 href="/about"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
               >
                 {t("about")}
               </Link>
               <Link
                 href="/contact"
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
               >
                 {t("contact")}
               </Link>

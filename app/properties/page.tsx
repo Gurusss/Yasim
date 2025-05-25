@@ -395,7 +395,7 @@ export default function PropertiesPage() {
               href="/new-developments"
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
             >
-              {language === "ru" ? t("new-dev-projects-ru") : t("new-dev-projects")}
+              {t("new-developments")}
             </Link>
             <Link href="/investments" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
               {t("investments")}

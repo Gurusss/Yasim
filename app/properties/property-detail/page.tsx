@@ -232,20 +232,20 @@ export default function PropertyDetailPage() {
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden"
+              className="md:hidden p-2"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
+                width="28"
+                height="28"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-6 w-6"
+                className="h-7 w-7"
               >
                 <line x1="4" x2="20" y1="12" y2="12" />
                 <line x1="4" x2="20" y1="6" y2="6" />
@@ -258,71 +258,47 @@ export default function PropertyDetailPage() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-          <div className="container py-4">
-            <div className="flex justify-between items-center mb-8">
-              <Logo />
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="h-6 w-6"
-                >
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </Button>
-            </div>
-            <nav className="flex flex-col gap-6 text-center">
+        <div className="md:hidden fixed top-16 left-0 w-full bg-white border-b z-40">
+          <div className="container py-4 space-y-4">
+            <nav className="flex flex-col gap-6">
               <Link 
                 href="/" 
-                className="text-lg font-medium transition-colors hover:text-primary"
+                className="text-lg font-medium transition-colors hover:text-primary text-left pl-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("home")}
               </Link>
               <Link 
                 href="/properties" 
-                className="text-lg font-medium transition-colors hover:text-primary"
+                className="text-lg font-medium transition-colors hover:text-primary text-left pl-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("properties")}
               </Link>
               <Link
                 href="/new-developments"
-                className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("new-developments")}
               </Link>
               <Link
                 href="/investments"
-                className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("investments")}
               </Link>
               <Link
                 href="/about"
-                className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("about")}
               </Link>
               <Link
                 href="/contact"
-                className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary"
+                className="text-lg font-medium text-muted-foreground transition-colors hover:text-primary text-left pl-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {t("contact")}
