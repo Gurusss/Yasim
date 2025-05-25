@@ -26,6 +26,7 @@ import FeatureCard from "@/components/feature-card"
 import { useLanguage } from "@/contexts/language-context"
 import LanguageSwitcher from "@/components/language-switcher"
 import ProfileForm from "@/components/profile-form"
+import ContactFormDialog from "@/components/contact-form-dialog"
 import { useState } from "react"
 
 export default function HomePage() {
@@ -163,8 +164,8 @@ export default function HomePage() {
           </div>
           <div className="container relative z-10 py-28 md:py-36 lg:py-44">
             <div className="max-w-3xl space-y-5 text-white">
-              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">{t("hero-title")}</h1>
-              <p className="text-lg md:text-xl text-white/90">{t("hero-subtitle")}</p>
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">Недвижимость на Пхукете для жизни и инвестиций</h1>
+              <p className="text-lg md:text-xl text-white/90">Подбор проверенных объектов с юридическим сопровождением от Yasmin – Gold Company</p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button size="lg" className="bg-white text-black hover:bg-white/90">
                   {t("explore-properties")}
@@ -207,7 +208,7 @@ export default function HomePage() {
                           <label className="text-sm font-medium">{t("property-type")}</label>
                           <div className="relative">
                             <Home className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                            <select className="flex h-10 w-full rounded-md border border-input bg-background px-9 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                            <select className="flex h-10 w-full rounded-md border border-input bg-background pl-9 pr-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                               <option>{t("any-type")}</option>
                               <option>{t("apartment")}</option>
                               <option>{t("villa")}</option>
@@ -257,7 +258,7 @@ export default function HomePage() {
                           <label className="text-sm font-medium">{t("property-type")}</label>
                           <div className="relative">
                             <Home className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                            <select className="flex h-10 w-full rounded-md border border-input bg-background px-9 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                            <select className="flex h-10 w-full rounded-md border border-input bg-background pl-9 pr-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                               <option>{t("any-type")}</option>
                               <option>{t("apartment")}</option>
                               <option>{t("villa")}</option>
@@ -306,7 +307,7 @@ export default function HomePage() {
                           <label className="text-sm font-medium">{t("investment-type")}</label>
                           <div className="relative">
                             <Building2 className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                            <select className="flex h-10 w-full rounded-md border border-input bg-background px-9 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
+                            <select className="flex h-10 w-full rounded-md border border-input bg-background pl-9 pr-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
                               <option>{t("any-type")}</option>
                               <option>{t("new-developments")}</option>
                               <option>{t("rental-services")}</option>
@@ -528,7 +529,7 @@ export default function HomePage() {
             <Card className="overflow-hidden border-none shadow-md">
               <div className="relative h-80">
                 <Image
-                  src="/placeholder.svg?height=600&width=800"
+                  src="/images/резидент.jpg"
                   alt="Luxury development"
                   fill
                   className="object-cover"
@@ -590,7 +591,7 @@ export default function HomePage() {
             <Card className="overflow-hidden border-none shadow-md">
               <div className="relative h-80">
                 <Image
-                  src="/placeholder.svg?height=600&width=800"
+                  src="/images/вила.jpg"
                   alt="Luxury development"
                   fill
                   className="object-cover"
@@ -700,16 +701,23 @@ export default function HomePage() {
                 <p className="text-primary-foreground/90">{t("ready-to-find-your-dream-property-subtitle")}</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-end">
-                <Button size="lg" variant="secondary">
-                  {t("contact-us")}
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
-                >
-                  {t("schedule-consultation")}
-                </Button>
+                <ContactFormDialog
+                  buttonText={t("contact-us")}
+                  buttonVariant="secondary"
+                  buttonSize="lg"
+                  title={t("contact-us")}
+                  description={t("ready-to-find-your-dream-property-subtitle")}
+                  defaultMessage={"Я хотел бы получить информацию о недвижимости."}
+                />
+                <ContactFormDialog
+                  buttonText={t("schedule-consultation")}
+                  buttonVariant="outline"
+                  buttonSize="lg"
+                  buttonClassName="border-primary text-primary hover:bg-primary/10"
+                  title={t("schedule-consultation")}
+                  description={t("ready-to-find-your-dream-property-subtitle")}
+                  defaultMessage={"Я хотел бы запланировать консультацию по вопросу недвижимости."}
+                />
               </div>
             </div>
           </div>

@@ -40,8 +40,10 @@ import {
   BookOpen,
   PanelTop,
   Music,
+  Coffee,
   Mountain,
-  Key
+  Key,
+  Activity
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -75,6 +77,75 @@ export default function PropertyDetailPage() {
   
   // Объекты недвижимости
   const properties: Record<string, any> = {
+    '2': {
+      id: 2,
+      title: "Комплекс апартаментов Kamala Beach",
+      location: "Kamala Beach, Phuket (300м от моря)",
+      price: "от 6,200,000 бат",
+      pricePerSqm: "от 180,000 бат/м²",
+      beds: "1-2",
+      baths: "1-2",
+      area: "35-120 м²",
+      landArea: "",
+      type: "Apartment",
+      dealType: "Sale",
+      yearBuilt: "2026 (4 квартал)",
+      floor: "Различные этажи",
+      parking: "Да",
+      furnished: "Полностью",
+      ownership: "Freehold",
+      images: [
+        "/images/Проект2/PHOTO-2025-05-24-22-50-23.jpg",
+        "/images/Проект2/PHOTO-2025-05-24-22-50-23 2.jpg",
+        "/images/Проект2/PHOTO-2025-05-24-22-50-24.jpg",
+        "/images/Проект2/PHOTO-2025-05-24-22-50-25.jpg",
+        "/images/Проект2/PHOTO-2025-05-24-22-50-25 2.jpg",
+        "/images/Проект2/PHOTO-2025-05-24-22-50-26.jpg",
+        "/images/Проект2/PHOTO-2025-05-24-22-50-26 2.jpg",
+        "/images/Проект2/PHOTO-2025-05-24-22-50-26 3.jpg",
+        "/images/Проект2/PHOTO-2025-05-24-22-50-26 4.jpg",
+      ],
+      video: "/images/Проект2/VIDEO-2025-05-24-22-50-42.mp4",
+      features: [
+        { icon: Waves, name: "400м до моря" },
+        { icon: Waves, name: "Бассейны на 1м этаже" },
+        { icon: Waves, name: "Панорамный бассейн на крыше" },
+        { icon: Waves, name: "Бассейн гидротерапии" },
+        { icon: Waves, name: "Зона водных развлечений" },
+        { icon: Bath, name: "Джакузи" },
+        { icon: Thermometer, name: "Сауна" },
+        { icon: Dumbbell, name: "Фитнес" },
+        { icon: Activity, name: "Площадка для йоги и тренировок" },
+        { icon: Music, name: "Караоке" },
+        { icon: Coffee, name: "Кафе, бар" },
+        { icon: Wifi, name: "Коворкинг" },
+        { icon: Users, name: "Детский бассейн и площадка" },
+        { icon: Mountain, name: "Стена для скалолазания" },
+        { icon: Flame, name: "Зона барбекю" },
+        { icon: Car, name: "Здание парковки" },
+        { icon: Shield, name: "Охрана и видеонаблюдение 24/7" },
+        { icon: Key, name: "Доступ на территорию по картам" },
+      ],
+      description: "Новый комплекс апартаментов в популярном районе Kamala Beach. Всего 300 метров от пляжа. Современная архитектура, премиальные материалы и полная инфраструктура для комфортной жизни.",
+      apartmentTypes: [
+        "Studio",
+        "1 bedroom",
+        "2 bedroom",
+        "3 bedroom"
+      ],
+      paymentOptions: [
+        "При оплате 100% в течении 30 дней после бронирования - скидка 8%",
+        "Рассрочка на 2 года строительства"
+      ],
+      highlights: [
+        "Прямой доступ к пляжу",
+        "Панорамные виды на море",
+        "Полная инфраструктура",
+        "Гарантия от застройщика"
+      ],
+      roi: "7-9% годовых",
+      mapLocation: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.0376526218166!2d98.27850931477958!3d7.9500952941638!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x305031c2e3f9a59f%3A0xf10c0b562ae3ad38!2sKamala%20Beach!5e0!3m2!1sen!2sth!4v1622000000000!5m2!1sen!2sth"
+    },
     '1': {
       id: 1,
       title: "Строящийся комплекс Bang Tao Beach",
@@ -96,28 +167,34 @@ export default function PropertyDetailPage() {
         "/images/Проект1/PHOTO-2025-05-24-22-48-36.jpg",
         "/images/Проект1/PHOTO-2025-05-24-22-48-37.jpg",
         "/images/Проект1/PHOTO-2025-05-24-22-48-38.jpg",
+        "/images/Проект1/PHOTO-2025-05-24-22-48-38 2.jpg",
+        "/images/Проект1/PHOTO-2025-05-24-22-48-38 3.jpg",
         "/images/Проект1/PHOTO-2025-05-24-22-48-39.jpg",
         "/images/Проект1/PHOTO-2025-05-24-22-48-40.jpg",
         "/images/Проект1/PHOTO-2025-05-24-22-48-41.jpg",
+        "/images/Проект1/PHOTO-2025-05-24-22-48-42.jpg",
+        "/images/Проект1/PHOTO-2025-05-24-22-48-43.jpg",
       ],
       video: "/images/Проект1/VIDEO-2025-05-24-22-49-38.mp4",
       features: [
-        { icon: Waves, name: "500м от моря" },
-        { icon: Waves, name: "Бассейны" },
-        { icon: Dumbbell, name: "Фитнес зал" },
-        { icon: HeartPulse, name: "Центр здоровья" },
-        { icon: PanelTop, name: "Конференц-зал" },
+        { icon: Waves, name: "400м до моря" },
+        { icon: Waves, name: "Бассейны на 1м этаже" },
+        { icon: Waves, name: "Панорамный бассейн на крыше" },
+        { icon: Waves, name: "Бассейн гидротерапии" },
+        { icon: Waves, name: "Зона водных развлечений" },
+        { icon: Bath, name: "Джакузи" },
         { icon: Thermometer, name: "Сауна" },
-        { icon: Sofa, name: "СПА" },
-        { icon: Wifi, name: "Ко-воркинг" },
-        { icon: Users, name: "Детская игровая" },
-        { icon: Film, name: "Кинотеатр" },
-        { icon: Flag, name: "Мини гольф" },
+        { icon: Dumbbell, name: "Фитнес зал" },
+        { icon: Activity, name: "Площадка для йоги и тренировок" },
+        { icon: Music, name: "Караоке" },
+        { icon: Coffee, name: "Кафе, бар" },
+        { icon: Wifi, name: "Коворкинг" },
+        { icon: Users, name: "Детский бассейн и площадка" },
+        { icon: Mountain, name: "Стена для скалолазания" },
         { icon: Flame, name: "Зона барбекю" },
-        { icon: BookOpen, name: "Библиотека" },
-        { icon: Car, name: "Парковка" },
+        { icon: Car, name: "Здание парковки" },
         { icon: Shield, name: "Охрана и видеонаблюдение 24/7" },
-        { icon: Building, name: "Лобби" },
+        { icon: Key, name: "Доступ на территорию по картам" },
       ],
       description: "Строящийся кондоминиум Bang Tao Beach расположен всего в 500 метрах от моря в одном из самых популярных районов Пхукета. Комплекс предлагает апартаменты различных планировок от студий до трехкомнатных квартир с современным дизайном и высококачественной отделкой. На территории комплекса расположены многочисленные удобства, включая несколько бассейнов, фитнес-центр, спа, детскую площадку и многое другое.",
       neighborhood: "Район Bang Tao Beach известен своими прекрасными пляжами с белым песком, развитой инфраструктурой и множеством ресторанов, магазинов и развлечений. В непосредственной близости находятся международные школы, медицинские центры и торговые комплексы.",
@@ -496,10 +573,18 @@ export default function PropertyDetailPage() {
                 
                 {property.images.length > 4 && (
                   <div
-                    className="relative h-[115px] overflow-hidden rounded-lg cursor-pointer bg-black/50 flex items-center justify-center text-white"
+                    className="relative h-[115px] overflow-hidden rounded-lg cursor-pointer flex items-center justify-center text-white"
                     onClick={() => setShowAllPhotos(true)}
                   >
-                    +{property.images.length - 3} {t("more-photos")}
+                    <Image
+                      src={property.images[4] || "/placeholder.svg"}
+                      alt={`${property.title} more photos`}
+                      fill
+                      className="object-cover transition-transform hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+                      +{property.images.length - 3} {t("more-photos")}
+                    </div>
                   </div>
                 )}
               </div>
@@ -558,7 +643,7 @@ export default function PropertyDetailPage() {
               {/* Main Content */}
               <div className="lg:col-span-2 space-y-8">
                 {/* Description */}
-                <div>
+                <div className="mt-0 sm:mt-8">
                   <h2 className="text-2xl font-bold mb-4">{t("property-description")}</h2>
                   <p className="text-muted-foreground leading-relaxed mb-6">{property.description}</p>
 
@@ -608,10 +693,12 @@ export default function PropertyDetailPage() {
                         <span className="text-muted-foreground">{t("floor-area")}</span>
                         <span className="font-medium">{property.area}</span>
                       </div>
-                      <div className="flex justify-between">
-                        <span className="text-muted-foreground">{t("land-area")}</span>
-                        <span className="font-medium">{property.landArea}</span>
-                      </div>
+                      {propertyId !== '1' && propertyId !== '2' && (
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">{t("land-area")}</span>
+                          <span className="font-medium">{property.landArea}</span>
+                        </div>
+                      )}
                     </div>
                     <div className="space-y-4">
                       <div className="flex justify-between">

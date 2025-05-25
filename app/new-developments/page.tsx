@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import ProfileForm from "@/components/profile-form"
 import Logo from "@/components/logo"
+import Footer from "@/components/footer"
 
 export default function NewDevelopmentsPage() {
   const { t, language } = useLanguage()
@@ -379,7 +380,7 @@ export default function NewDevelopmentsPage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white/10 hover:text-white"
+                  className="border-white text-primary-foreground bg-primary hover:bg-primary/80"
                 >
                   {t("download-brochure")}
                 </Button>
@@ -1257,11 +1258,7 @@ export default function NewDevelopmentsPage() {
         </section>
       </main>
 
-      <footer className="border-t bg-muted/40">
-        <div className="container py-6 text-center text-sm text-muted-foreground">
-          © 2025 Yasmin - Gold Company. {t("all-rights-reserved")}
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

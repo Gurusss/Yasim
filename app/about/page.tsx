@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useLanguage } from "@/contexts/language-context"
+import Footer from "@/components/footer"
 import LanguageSwitcher from "@/components/language-switcher"
 import ContactFormDialog from "@/components/contact-form-dialog"
 import ProfileForm from "@/components/profile-form"
@@ -379,11 +380,7 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
-      <footer className="border-t bg-muted/40">
-        <div className="container py-6 text-center text-sm text-muted-foreground">
-          © 2025 Yasmin - Gold Company. {t("all-rights-reserved")}
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

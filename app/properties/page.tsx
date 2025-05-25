@@ -1,6 +1,8 @@
 "use client"
 import { useLanguage } from "@/contexts/language-context"
 import LanguageSwitcher from "@/components/language-switcher"
+import Logo from "@/components/logo"
+import Footer from "@/components/footer"
 import Link from "next/link"
 import { useState } from "react"
 import { ArrowLeft, ChevronDown, Filter, Grid3X3, LayoutList, Search } from "lucide-react"
@@ -9,219 +11,8 @@ import { Input } from "@/components/ui/input"
 import PropertyCard from "@/components/property-card"
 import ProfileForm from "@/components/profile-form"
 
-// Property data
-const allProperties = [
-  {
-    id: 1,
-    title: "Строящийся комплекс Bang Tao Beach",
-    location: "Bang Tao Beach",
-    price: "от 4,553,000 бат",
-    beds: 1,
-    baths: 1,
-    area: "29-148 sqm",
-    type: "Apartment",
-    imageUrl: "/images/Проект1/PHOTO-2025-05-24-22-48-36.jpg",
-    features: ["swimming-pool", "garden", "sea-view", "security"],
-    areaLocation: "bang-tao",
-    dealType: "buy",
-  },
-  {
-    id: 2,
-    title: "Modern Sea View Apartment",
-    location: "Kata Beach",
-    price: "$450,000",
-    beds: 2,
-    baths: 2,
-    area: "120 sqm",
-    type: "Apartment",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["sea-view", "gym"],
-    areaLocation: "kata",
-    dealType: "buy",
-  },
-  {
-    id: 3,
-    title: "Tropical Pool Villa",
-    location: "Nai Harn",
-    price: "$780,000",
-    beds: 3,
-    baths: 3,
-    area: "220 sqm",
-    type: "Villa",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["swimming-pool", "garden", "security"],
-    areaLocation: "nai-harn",
-    dealType: "buy",
-  },
-  {
-    id: 4,
-    title: "Luxury Penthouse",
-    location: "Patong",
-    price: "$950,000",
-    beds: 3,
-    baths: 4,
-    area: "280 sqm",
-    type: "Penthouse",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["sea-view", "gym", "security"],
-    areaLocation: "patong",
-    dealType: "buy",
-  },
-  {
-    id: 5,
-    title: "Beachfront Condo",
-    location: "Kamala Beach",
-    price: "$320,000",
-    beds: 1,
-    baths: 1,
-    area: "65 sqm",
-    type: "Apartment",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["sea-view", "gym"],
-    areaLocation: "kamala",
-    dealType: "buy",
-  },
-  {
-    id: 6,
-    title: "Family Villa with Garden",
-    location: "Chalong",
-    price: "$650,000",
-    beds: 4,
-    baths: 3,
-    area: "300 sqm",
-    type: "Villa",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["swimming-pool", "garden"],
-    areaLocation: "chalong",
-    dealType: "buy",
-  },
-  {
-    id: 7,
-    title: "Modern Studio Apartment",
-    location: "Phuket Town",
-    price: "$120,000",
-    beds: 1,
-    baths: 1,
-    area: "45 sqm",
-    type: "Apartment",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["gym"],
-    areaLocation: "phuket-town",
-    dealType: "buy",
-  },
-  {
-    id: 8,
-    title: "Hillside Sea View Villa",
-    location: "Cape Yamu",
-    price: "$1,800,000",
-    beds: 5,
-    baths: 6,
-    area: "450 sqm",
-    type: "Villa",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["swimming-pool", "sea-view", "garden", "security"],
-    areaLocation: "cape-yamu",
-    dealType: "buy",
-  },
-  {
-    id: 9,
-    title: "Investment Apartment",
-    location: "Rawai",
-    price: "$230,000",
-    beds: 2,
-    baths: 2,
-    area: "85 sqm",
-    type: "Apartment",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["swimming-pool"],
-    areaLocation: "rawai",
-    dealType: "buy",
-  },
-  {
-    id: 10,
-    title: "Luxury Pool Villa",
-    location: "Layan",
-    price: "$950,000",
-    beds: 3,
-    baths: 4,
-    area: "320 sqm",
-    type: "Villa",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["swimming-pool", "garden", "security"],
-    areaLocation: "layan",
-    dealType: "buy",
-  },
-  {
-    id: 11,
-    title: "Beachside Apartment",
-    location: "Karon Beach",
-    price: "$380,000",
-    beds: 2,
-    baths: 2,
-    area: "110 sqm",
-    type: "Apartment",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["sea-view", "gym"],
-    areaLocation: "karon",
-    dealType: "buy",
-  },
-  {
-    id: 12,
-    title: "Exclusive Penthouse",
-    location: "Surin Beach",
-    price: "$1,100,000",
-    beds: 3,
-    baths: 3,
-    area: "240 sqm",
-    type: "Penthouse",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["sea-view", "swimming-pool", "gym", "security"],
-    areaLocation: "surin",
-    dealType: "buy",
-  },
-  {
-    id: 13,
-    title: "Beachfront Apartment Rental",
-    location: "Patong Beach",
-    price: "$2,500/month",
-    beds: 2,
-    baths: 2,
-    area: "85 sqm",
-    type: "Apartment",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["sea-view", "gym"],
-    areaLocation: "patong",
-    dealType: "rent",
-  },
-  {
-    id: 14,
-    title: "Luxury Villa Rental",
-    location: "Bang Tao",
-    price: "$4,200/month",
-    beds: 3,
-    baths: 3,
-    area: "180 sqm",
-    type: "Villa",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["swimming-pool", "garden"],
-    areaLocation: "bang-tao",
-    dealType: "rent",
-  },
-  {
-    id: 15,
-    title: "Modern Condo Rental",
-    location: "Kamala",
-    price: "$1,800/month",
-    beds: 1,
-    baths: 1,
-    area: "65 sqm",
-    type: "Apartment",
-    imageUrl: "/placeholder.svg?height=400&width=600",
-    features: ["sea-view"],
-    areaLocation: "kamala",
-    dealType: "rent",
-  },
-]
+// Импортируем утилиты для работы с данными о недвижимости
+import { getAllProperties, filterProperties, Property } from "@/lib/utils/property-utils"
 
 export default function PropertiesPage() {
   const { t, language } = useLanguage()
@@ -230,14 +21,12 @@ export default function PropertiesPage() {
   const [selectedType, setSelectedType] = useState<string[]>([])
   const [selectedArea, setSelectedArea] = useState<string[]>([])
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([])
-  const [minBeds, setMinBeds] = useState("")
-  const [minBaths, setMinBaths] = useState("")
-  const [sortOption, setSortOption] = useState("featured")
-  const [viewMode, setViewMode] = useState("grid")
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [selectedDealType, setSelectedDealType] = useState<string[]>([])
-  
-  // Состояния для сворачивания/разворачивания разделов фильтров
+  const [minBeds, setMinBeds] = useState<string>("")
+  const [minBaths, setMinBaths] = useState<string>("")
+  const [sortOption, setSortOption] = useState<string>("featured")
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
+  const [showFilters, setShowFilters] = useState(false)
   const [expandedSections, setExpandedSections] = useState({
     propertyType: true,
     dealType: true,
@@ -247,7 +36,7 @@ export default function PropertiesPage() {
     area: true,
     features: true
   })
-  
+
   // Функция для переключения состояния раздела
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections(prev => ({
@@ -258,8 +47,34 @@ export default function PropertiesPage() {
 
   const itemsPerPage = 9
 
-  // Filter properties based on selected filters
-  const filteredProperties = allProperties.filter((property) => {
+  // Получаем все объекты недвижимости из централизованного хранилища
+  const allProperties = getAllProperties()
+
+  // Подготавливаем параметры фильтрации
+  const filterParams: any = {
+    areaLocation: selectedArea.length > 0 ? selectedArea : undefined,
+    dealType: selectedDealType.length > 0 ? selectedDealType : undefined,
+    features: selectedFeatures.length > 0 ? selectedFeatures : undefined,
+    minBeds: minBeds ? Number.parseInt(minBeds) : undefined,
+    minBaths: minBaths ? Number.parseInt(minBaths) : undefined
+  }
+  
+  // Обрабатываем типы недвижимости и теги
+  const regularTypes = selectedType.filter(type => type !== "NewProperties")
+  const hasNewPropertiesFilter = selectedType.includes("NewProperties")
+  
+  // Если есть обычные типы, добавляем их в фильтр
+  if (regularTypes.length > 0) {
+    filterParams.type = regularTypes
+  }
+  
+  // Если выбран фильтр "Новостройки", добавляем тег "New Properties"
+  if (hasNewPropertiesFilter) {
+    filterParams.tags = ["New Properties"]
+  }
+  
+  // Фильтруем свойства
+  const filteredProperties = filterProperties(filterParams).filter((property) => {
     // Search term filter
     if (
       searchTerm &&
@@ -268,37 +83,6 @@ export default function PropertiesPage() {
     ) {
       return false
     }
-
-    // Property type filter
-    if (selectedType.length > 0 && !selectedType.includes(property.type)) {
-      return false
-    }
-
-    // Area filter
-    if (selectedArea.length > 0 && !selectedArea.includes(property.areaLocation)) {
-      return false
-    }
-
-    // Features filter
-    if (selectedFeatures.length > 0 && !selectedFeatures.every((feature) => property.features.includes(feature))) {
-      return false
-    }
-
-    // Deal type filter
-    if (selectedDealType.length > 0 && !selectedDealType.includes(property.dealType)) {
-      return false
-    }
-
-    // Bedrooms filter
-    if (minBeds && property.beds < Number.parseInt(minBeds)) {
-      return false
-    }
-
-    // Bathrooms filter
-    if (minBaths && property.baths < Number.parseInt(minBaths)) {
-      return false
-    }
-
     return true
   })
 
@@ -309,8 +93,8 @@ export default function PropertiesPage() {
         return Number.parseFloat(a.price.replace(/[^0-9.]/g, "")) - Number.parseFloat(b.price.replace(/[^0-9.]/g, ""))
       case "price-high-to-low":
         return Number.parseFloat(b.price.replace(/[^0-9.]/g, "")) - Number.parseFloat(a.price.replace(/[^0-9.]/g, ""))
-      case "newest-first":
-        return b.id - a.id
+      case "newest":
+        return 0 // Здесь можно добавить сортировку по дате, если она будет добавлена в данные
       default:
         return 0 // featured
     }
@@ -322,566 +106,491 @@ export default function PropertiesPage() {
 
   // Handle filter changes
   const handleTypeChange = (type: string) => {
-    setSelectedType((prev) => (prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]))
-    setCurrentPage(1)
+    // Если выбран тип "NewProperties", добавляем его в массив тегов для фильтрации
+    if (type === "NewProperties") {
+      // Если "NewProperties" уже есть в выбранных типах, удаляем его
+      if (selectedType.includes(type)) {
+        setSelectedType(prev => prev.filter(t => t !== type))
+      } else {
+        // Иначе добавляем его
+        setSelectedType(prev => [...prev, type])
+      }
+    } else {
+      // Для остальных типов обрабатываем как обычно
+      setSelectedType(prev => prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type])
+    }
   }
 
   const handleAreaChange = (area: string) => {
-    setSelectedArea((prev) => (prev.includes(area) ? prev.filter((a) => a !== area) : [...prev, area]))
-    setCurrentPage(1)
+    setSelectedArea(prev => prev.includes(area) ? prev.filter(a => a !== area) : [...prev, area])
   }
 
   const handleFeatureChange = (feature: string) => {
-    setSelectedFeatures((prev) => (prev.includes(feature) ? prev.filter((f) => f !== feature) : [...prev, feature]))
-    setCurrentPage(1)
+    setSelectedFeatures(prev => prev.includes(feature) ? prev.filter(f => f !== feature) : [...prev, feature])
   }
 
   const handleBedroomChange = (value: string) => {
     setMinBeds(value)
-    setCurrentPage(1)
   }
 
   const handleBathroomChange = (value: string) => {
     setMinBaths(value)
-    setCurrentPage(1)
   }
 
   const handleDealTypeChange = (dealType: string) => {
-    setSelectedDealType((prev) => (prev.includes(dealType) ? prev.filter((d) => d !== dealType) : [...prev, dealType]))
-    setCurrentPage(1)
+    setSelectedDealType(prev => prev.includes(dealType) ? prev.filter(dt => dt !== dealType) : [...prev, dealType])
   }
 
   const resetFilters = () => {
-    setSearchTerm("")
     setSelectedType([])
     setSelectedArea([])
     setSelectedFeatures([])
+    setSelectedDealType([])
     setMinBeds("")
     setMinBaths("")
-    setCurrentPage(1)
-    setSelectedDealType([])
+    setSearchTerm("")
+    setSortOption("featured")
   }
 
   return (
     <div className="flex min-h-screen flex-col">
       <header className="sticky top-0 z-50 w-full border-b bg-white">
         <div className="container flex h-16 items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="relative h-10 w-10 overflow-hidden">
-              <img
-                src="/images/yasmin-logo.png"
-                alt="Yasmin Gold Company Logo"
-                className="h-full w-full object-contain"
-                width={40}
-                height={40}
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight">Yasmin</span>
-              <span className="text-xs text-muted-foreground">Gold Company</span>
-            </div>
-          </Link>
+          <Logo />
           <nav className="hidden md:flex gap-6">
-            <Link href="/" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+            <Link href="/" className="text-sm font-medium transition-colors hover:text-primary">
               {t("home")}
             </Link>
-            <Link
-              href="/properties"
-              className="text-sm font-medium transition-colors hover:text-primary"
-            >
+            <Link href="/properties" className="text-sm font-medium text-primary transition-colors">
               {t("properties")}
             </Link>
-            <Link
-              href="/new-developments"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
+            <Link href="/new-developments" className="text-sm font-medium transition-colors hover:text-primary">
               {t("new-developments")}
             </Link>
-            <Link href="/investments" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+            <Link href="/investments" className="text-sm font-medium transition-colors hover:text-primary">
               {t("investments")}
             </Link>
-            <Link
-              href="/about"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
+            <Link href="/about" className="text-sm font-medium transition-colors hover:text-primary">
               {t("about")}
             </Link>
-            <Link
-              href="/contact"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
+            <Link href="/contact" className="text-sm font-medium transition-colors hover:text-primary">
               {t("contact")}
             </Link>
           </nav>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2">
             <LanguageSwitcher />
-            <ProfileForm />
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className="h-6 w-6"
-              >
-                <line x1="4" x2="20" y1="12" y2="12" />
-                <line x1="4" x2="20" y1="6" y2="6" />
-                <line x1="4" x2="20" y1="18" y2="18" />
-              </svg>
-            </Button>
+            <Link href="/profile">
+              <Button variant="outline" size="sm">
+                {t("profile")}
+              </Button>
+            </Link>
           </div>
         </div>
       </header>
       <main className="flex-1">
-        <div className="container py-8">
-          <div className="mb-8 space-y-2">
-            <h1 className="text-3xl font-bold tracking-tight">{t("properties-title")}</h1>
-            <p className="text-muted-foreground">{t("properties-subtitle")}</p>
-          </div>
-          <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
-            <div className="lg:col-span-1">
-              <div className="sticky top-24 space-y-6">
-                <div className="rounded-lg border p-4">
-                  <div className="mb-4 flex items-center justify-between">
-                    <h3 className="font-medium">{t("filters")}</h3>
-                    <Button variant="ghost" size="sm" className="h-auto p-0 text-sm font-medium" onClick={resetFilters}>
-                      {t("reset")}
-                    </Button>
-                  </div>
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <div 
-                        className="flex items-center justify-between cursor-pointer" 
-                        onClick={() => toggleSection('propertyType')}
-                      >
-                        <label className="text-sm font-medium">{t("property-type")}</label>
-                        <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.propertyType ? '' : 'transform rotate-180'}`} />
-                      </div>
-                      <div className={`space-y-1 ${expandedSections.propertyType ? '' : 'hidden'}`}>
-                        <div className="flex items-center space-x-2">
+        <div className="container py-6 md:py-8">
+          <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-8">
+            <div className={`w-full md:max-w-[240px] md:flex-none ${showFilters ? "block" : "hidden md:block"}`}>
+              <div className="sticky top-24 rounded-lg border p-4">
+                <div className="flex items-center justify-between pb-4">
+                  <h2 className="text-lg font-semibold">Фильтры</h2>
+                  <Button variant="ghost" size="sm" onClick={resetFilters}>
+                    {t("reset")}
+                  </Button>
+                </div>
+                <div className="space-y-4">
+                  <div className="border-t pt-4">
+                    <button
+                      className="flex w-full items-center justify-between"
+                      onClick={() => toggleSection("propertyType")}
+                    >
+                      <h3 className="font-medium">{t("property-type")}</h3>
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform ${expandedSections.propertyType ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {expandedSections.propertyType && (
+                      <div className="mt-2 space-y-1">
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="type-apartment"
-                            className="h-4 w-4 rounded border-gray-300"
                             checked={selectedType.includes("Apartment")}
                             onChange={() => handleTypeChange("Apartment")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="type-apartment" className="text-sm">
-                            {t("apartment")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                          <span>{t("apartment")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="type-villa"
-                            className="h-4 w-4 rounded border-gray-300"
                             checked={selectedType.includes("Villa")}
                             onChange={() => handleTypeChange("Villa")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="type-villa" className="text-sm">
-                            {t("villa")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                          <span>{t("villa")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="type-penthouse"
-                            className="h-4 w-4 rounded border-gray-300"
                             checked={selectedType.includes("Penthouse")}
                             onChange={() => handleTypeChange("Penthouse")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="type-penthouse" className="text-sm">
-                            {t("penthouse")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                          <span>{t("penthouse")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="type-land"
-                            className="h-4 w-4 rounded border-gray-300"
                             checked={selectedType.includes("Land")}
                             onChange={() => handleTypeChange("Land")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="type-land" className="text-sm">
-                            {t("land")}
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div 
-                        className="flex items-center justify-between cursor-pointer" 
-                        onClick={() => toggleSection('dealType')}
-                      >
-                        <label className="text-sm font-medium">{t("deal-type")}</label>
-                        <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.dealType ? '' : 'transform rotate-180'}`} />
-                      </div>
-                      <div className={`space-y-1 ${expandedSections.dealType ? '' : 'hidden'}`}>
-                        <div className="flex items-center space-x-2">
+                          <span>{t("land")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="deal-buy"
+                            checked={selectedType.includes("NewProperties")}
+                            onChange={() => handleTypeChange("NewProperties")}
                             className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>Новостройки</span>
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                  <div className="border-t pt-4">
+                    <button
+                      className="flex w-full items-center justify-between"
+                      onClick={() => toggleSection("dealType")}
+                    >
+                      <h3 className="font-medium">{t("deal-type")}</h3>
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform ${expandedSections.dealType ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {expandedSections.dealType && (
+                      <div className="mt-2 space-y-1">
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
                             checked={selectedDealType.includes("buy")}
                             onChange={() => handleDealTypeChange("buy")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="deal-buy" className="text-sm">
-                            {t("buy")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                          <span>{t("buy")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="deal-rent"
-                            className="h-4 w-4 rounded border-gray-300"
                             checked={selectedDealType.includes("rent")}
                             onChange={() => handleDealTypeChange("rent")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="deal-rent" className="text-sm">
-                            {t("rent")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                          <span>{t("rent")}</span>
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                  <div className="border-t pt-4">
+                    <button
+                      className="flex w-full items-center justify-between"
+                      onClick={() => toggleSection("bedrooms")}
+                    >
+                      <h3 className="font-medium">{t("bedrooms")}</h3>
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform ${expandedSections.bedrooms ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {expandedSections.bedrooms && (
+                      <div className="mt-2 space-y-1">
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="bedrooms"
+                            checked={minBeds === ""}
+                            onChange={() => handleBedroomChange("")}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>{t("any")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="bedrooms"
+                            checked={minBeds === "1"}
+                            onChange={() => handleBedroomChange("1")}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>1+</span>
+                        </label>
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="bedrooms"
+                            checked={minBeds === "2"}
+                            onChange={() => handleBedroomChange("2")}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>2+</span>
+                        </label>
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="bedrooms"
+                            checked={minBeds === "3"}
+                            onChange={() => handleBedroomChange("3")}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>3+</span>
+                        </label>
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="bedrooms"
+                            checked={minBeds === "4"}
+                            onChange={() => handleBedroomChange("4")}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>4+</span>
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                  <div className="border-t pt-4">
+                    <button
+                      className="flex w-full items-center justify-between"
+                      onClick={() => toggleSection("bathrooms")}
+                    >
+                      <h3 className="font-medium">{t("bathrooms")}</h3>
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform ${expandedSections.bathrooms ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {expandedSections.bathrooms && (
+                      <div className="mt-2 space-y-1">
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="bathrooms"
+                            checked={minBaths === ""}
+                            onChange={() => handleBathroomChange("")}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>{t("any")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="bathrooms"
+                            checked={minBaths === "1"}
+                            onChange={() => handleBathroomChange("1")}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>1+</span>
+                        </label>
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="bathrooms"
+                            checked={minBaths === "2"}
+                            onChange={() => handleBathroomChange("2")}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>2+</span>
+                        </label>
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="radio"
+                            name="bathrooms"
+                            checked={minBaths === "3"}
+                            onChange={() => handleBathroomChange("3")}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>3+</span>
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                  <div className="border-t pt-4">
+                    <button
+                      className="flex w-full items-center justify-between"
+                      onClick={() => toggleSection("area")}
+                    >
+                      <h3 className="font-medium">{t("area")}</h3>
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform ${expandedSections.area ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {expandedSections.area && (
+                      <div className="mt-2 space-y-1">
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="deal-invest"
-                            className="h-4 w-4 rounded border-gray-300"
-                            checked={selectedDealType.includes("invest")}
-                            onChange={() => handleDealTypeChange("invest")}
-                          />
-                          <label htmlFor="deal-invest" className="text-sm">
-                            {t("invest")}
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div 
-                        className="flex items-center justify-between cursor-pointer" 
-                        onClick={() => toggleSection('priceRange')}
-                      >
-                        <label className="text-sm font-medium">{t("price-range")}</label>
-                        <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.priceRange ? '' : 'transform rotate-180'}`} />
-                      </div>
-                      <div className={`grid grid-cols-2 gap-2 ${expandedSections.priceRange ? '' : 'hidden'}`}>
-                        <div>
-                          <Input placeholder={t("min")} type="number" className="text-sm" />
-                        </div>
-                        <div>
-                          <Input placeholder={t("max")} type="number" className="text-sm" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div 
-                        className="flex items-center justify-between cursor-pointer" 
-                        onClick={() => toggleSection('bedrooms')}
-                      >
-                        <label className="text-sm font-medium">{t("bedrooms")}</label>
-                        <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.bedrooms ? '' : 'transform rotate-180'}`} />
-                      </div>
-                      <div className={`flex flex-wrap gap-2 ${expandedSections.bedrooms ? '' : 'hidden'}`}>
-                        <Button
-                          variant={minBeds === "" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBedroomChange("")}
-                        >
-                          {t("any")}
-                        </Button>
-                        <Button
-                          variant={minBeds === "1" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBedroomChange("1")}
-                        >
-                          1+
-                        </Button>
-                        <Button
-                          variant={minBeds === "2" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBedroomChange("2")}
-                        >
-                          2+
-                        </Button>
-                        <Button
-                          variant={minBeds === "3" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBedroomChange("3")}
-                        >
-                          3+
-                        </Button>
-                        <Button
-                          variant={minBeds === "4" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBedroomChange("4")}
-                        >
-                          4+
-                        </Button>
-                        <Button
-                          variant={minBeds === "5" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBedroomChange("5")}
-                        >
-                          5+
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div 
-                        className="flex items-center justify-between cursor-pointer" 
-                        onClick={() => toggleSection('bathrooms')}
-                      >
-                        <label className="text-sm font-medium">{t("bathrooms")}</label>
-                        <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.bathrooms ? '' : 'transform rotate-180'}`} />
-                      </div>
-                      <div className={`flex flex-wrap gap-2 ${expandedSections.bathrooms ? '' : 'hidden'}`}>
-                        <Button
-                          variant={minBaths === "" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBathroomChange("")}
-                        >
-                          {t("any")}
-                        </Button>
-                        <Button
-                          variant={minBaths === "1" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBathroomChange("1")}
-                        >
-                          1+
-                        </Button>
-                        <Button
-                          variant={minBaths === "2" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBathroomChange("2")}
-                        >
-                          2+
-                        </Button>
-                        <Button
-                          variant={minBaths === "3" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBathroomChange("3")}
-                        >
-                          3+
-                        </Button>
-                        <Button
-                          variant={minBaths === "4" ? "default" : "outline"}
-                          size="sm"
-                          className="h-8 rounded-full"
-                          onClick={() => handleBathroomChange("4")}
-                        >
-                          4+
-                        </Button>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div 
-                        className="flex items-center justify-between cursor-pointer" 
-                        onClick={() => toggleSection('area')}
-                      >
-                        <label className="text-sm font-medium">{t("area")}</label>
-                        <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.area ? '' : 'transform rotate-180'}`} />
-                      </div>
-                      <div className={`space-y-1 ${expandedSections.area ? '' : 'hidden'}`}>
-                        <div className="flex items-center space-x-2">
-                          <input
-                            type="checkbox"
-                            id="area-bang-tao"
-                            className="h-4 w-4 rounded border-gray-300"
                             checked={selectedArea.includes("bang-tao")}
                             onChange={() => handleAreaChange("bang-tao")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="area-bang-tao" className="text-sm">
-                            Bang Tao
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                          <span>Bang Tao</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="area-kata"
-                            className="h-4 w-4 rounded border-gray-300"
-                            checked={selectedArea.includes("kata")}
-                            onChange={() => handleAreaChange("kata")}
-                          />
-                          <label htmlFor="area-kata" className="text-sm">
-                            Kata
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <input
-                            type="checkbox"
-                            id="area-kamala"
-                            className="h-4 w-4 rounded border-gray-300"
                             checked={selectedArea.includes("kamala")}
                             onChange={() => handleAreaChange("kamala")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="area-kamala" className="text-sm">
-                            Kamala
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                          <span>Kamala</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="area-nai-harn"
-                            className="h-4 w-4 rounded border-gray-300"
-                            checked={selectedArea.includes("nai-harn")}
-                            onChange={() => handleAreaChange("nai-harn")}
-                          />
-                          <label htmlFor="area-nai-harn" className="text-sm">
-                            Nai Harn
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <input
-                            type="checkbox"
-                            id="area-patong"
-                            className="h-4 w-4 rounded border-gray-300"
                             checked={selectedArea.includes("patong")}
                             onChange={() => handleAreaChange("patong")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="area-patong" className="text-sm">
-                            Patong
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div 
-                        className="flex items-center justify-between cursor-pointer" 
-                        onClick={() => toggleSection('features')}
-                      >
-                        <label className="text-sm font-medium">{t("features")}</label>
-                        <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${expandedSections.features ? '' : 'transform rotate-180'}`} />
-                      </div>
-                      <div className={`space-y-1 ${expandedSections.features ? '' : 'hidden'}`}>
-                        <div className="flex items-center space-x-2">
+                          <span>Patong</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="feature-pool"
+                            checked={selectedArea.includes("kata")}
+                            onChange={() => handleAreaChange("kata")}
                             className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>Kata</span>
+                        </label>
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={selectedArea.includes("rawai")}
+                            onChange={() => handleAreaChange("rawai")}
+                            className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>Rawai</span>
+                        </label>
+                      </div>
+                    )}
+                  </div>
+                  <div className="border-t pt-4">
+                    <button
+                      className="flex w-full items-center justify-between"
+                      onClick={() => toggleSection("features")}
+                    >
+                      <h3 className="font-medium">{t("features")}</h3>
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform ${expandedSections.features ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {expandedSections.features && (
+                      <div className="mt-2 space-y-1">
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
                             checked={selectedFeatures.includes("swimming-pool")}
                             onChange={() => handleFeatureChange("swimming-pool")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="feature-pool" className="text-sm">
-                            {t("swimming-pool")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                          <span>{t("swimming-pool")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="feature-garden"
-                            className="h-4 w-4 rounded border-gray-300"
-                            checked={selectedFeatures.includes("garden")}
-                            onChange={() => handleFeatureChange("garden")}
-                          />
-                          <label htmlFor="feature-garden" className="text-sm">
-                            {t("garden")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <input
-                            type="checkbox"
-                            id="feature-sea-view"
-                            className="h-4 w-4 rounded border-gray-300"
                             checked={selectedFeatures.includes("sea-view")}
                             onChange={() => handleFeatureChange("sea-view")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="feature-sea-view" className="text-sm">
-                            {t("sea-view")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                          <span>{t("sea-view")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="feature-gym"
+                            checked={selectedFeatures.includes("garden")}
+                            onChange={() => handleFeatureChange("garden")}
                             className="h-4 w-4 rounded border-gray-300"
+                          />
+                          <span>{t("garden")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
                             checked={selectedFeatures.includes("gym")}
                             onChange={() => handleFeatureChange("gym")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="feature-gym" className="text-sm">
-                            {t("gym")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
+                          <span>{t("gym")}</span>
+                        </label>
+                        <label className="flex items-center gap-2">
                           <input
                             type="checkbox"
-                            id="feature-security"
-                            className="h-4 w-4 rounded border-gray-300"
                             checked={selectedFeatures.includes("security")}
                             onChange={() => handleFeatureChange("security")}
+                            className="h-4 w-4 rounded border-gray-300"
                           />
-                          <label htmlFor="feature-security" className="text-sm">
-                            {t("security")}
-                          </label>
-                        </div>
+                          <span>{t("security")}</span>
+                        </label>
                       </div>
-                    </div>
-                    <Button className="w-full">
-                      <Filter className="mr-2 h-4 w-4" />
-                      {t("apply-filters")}
-                    </Button>
+                    )}
                   </div>
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-3">
-              <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
-                <div className="relative w-full max-w-sm">
-                  <Search className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder={t("search-properties")}
-                    className="pl-9"
-                    value={searchTerm}
-                    onChange={(e) => {
-                      setSearchTerm(e.target.value)
-                      setCurrentPage(1)
-                    }}
-                  />
+            <div className="flex-1">
+              <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="md:hidden"
+                    onClick={() => setShowFilters(!showFilters)}
+                  >
+                    <Filter className="mr-2 h-4 w-4" />
+                    {t("filters")}
+                  </Button>
+                  <div className="relative flex-1 md:w-[300px]">
+                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      type="search"
+                      placeholder={t("search-properties")}
+                      className="pl-8"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center gap-1">
-                    <Button
-                      variant={viewMode === "list" ? "default" : "ghost"}
-                      size="icon"
-                      className="h-8 w-8"
-                      onClick={() => setViewMode("list")}
+                  <div>
+                    <select
+                      className="rounded-md border border-input bg-background px-3 py-1 text-sm"
+                      value={sortOption}
+                      onChange={(e) => setSortOption(e.target.value)}
                     >
-                      <LayoutList className="h-4 w-4" />
-                      <span className="sr-only">{t("list-view")}</span>
-                    </Button>
+                      <option value="featured">{t("featured")}</option>
+                      <option value="price-low-to-high">{t("price-low-to-high")}</option>
+                      <option value="price-high-to-low">{t("price-high-to-low")}</option>
+                      <option value="newest">{t("newest")}</option>
+                    </select>
+                  </div>
+                  <div className="flex items-center rounded-md border border-input p-1">
                     <Button
-                      variant={viewMode === "grid" ? "default" : "ghost"}
-                      size="icon"
-                      className="h-8 w-8"
+                      variant={viewMode === "grid" ? "secondary" : "ghost"}
+                      size="sm"
+                      className="h-7 w-7 p-0"
                       onClick={() => setViewMode("grid")}
                     >
                       <Grid3X3 className="h-4 w-4" />
                       <span className="sr-only">{t("grid-view")}</span>
                     </Button>
+                    <Button
+                      variant={viewMode === "list" ? "secondary" : "ghost"}
+                      size="sm"
+                      className="h-7 w-7 p-0"
+                      onClick={() => setViewMode("list")}
+                    >
+                      <LayoutList className="h-4 w-4" />
+                      <span className="sr-only">{t("list-view")}</span>
+                    </Button>
                   </div>
-                  <select
-                    className="flex h-8 items-center rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                    value={sortOption}
-                    onChange={(e) => setSortOption(e.target.value)}
-                  >
-                    <option value="featured">{t("sort-featured")}</option>
-                    <option value="price-low-to-high">{t("price-low-to-high")}</option>
-                    <option value="price-high-to-low">{t("price-high-to-low")}</option>
-                    <option value="newest-first">{t("newest-first")}</option>
-                  </select>
                 </div>
               </div>
 
@@ -907,6 +616,7 @@ export default function PropertiesPage() {
                       area={property.area}
                       type={property.type}
                       imageUrl={property.imageUrl}
+                      id={property.id}
                     />
                   ))}
                 </div>
@@ -979,11 +689,7 @@ export default function PropertiesPage() {
           </div>
         </div>
       </main>
-      <footer className="border-t bg-muted/40">
-        <div className="container py-6 text-center text-sm text-muted-foreground">
-          © 2025 Yasmin - Gold Company. All rights reserved.
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

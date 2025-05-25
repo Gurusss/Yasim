@@ -1,5 +1,6 @@
 "use client"
 import { useLanguage } from "@/contexts/language-context"
+import Footer from "@/components/footer"
 import LanguageSwitcher from "@/components/language-switcher"
 import Link from "next/link"
 import Image from "next/image"
@@ -272,11 +273,7 @@ export default function ContactPage() {
           </div>
         </section>
       </main>
-      <footer className="border-t bg-muted/40">
-        <div className="container py-6 text-center text-sm text-muted-foreground">
-          © 2025 Yasmin - Gold Company. All rights reserved.
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

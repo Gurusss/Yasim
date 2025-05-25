@@ -31,11 +31,11 @@ export default function PropertyCard({ title, location, price, beds, baths, area
         </div>
         <div className="absolute left-3 top-3 z-10">
           <span className="inline-block rounded-full bg-primary px-2.5 py-0.5 text-xs font-medium text-primary-foreground">
-            {type}
+            New Properties
           </span>
         </div>
         <Link href={`/properties/property-detail?id=${id}`}>
-          <div className="relative h-60 overflow-hidden">
+          <div className="relative h-72 sm:h-60 overflow-hidden">
             <Image
               src={imageUrl || "/placeholder.svg"}
               alt={title}
