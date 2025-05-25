@@ -528,7 +528,7 @@ export default function HomePage() {
             <Card className="overflow-hidden border-none shadow-md">
               <div className="relative h-80">
                 <Image
-                  src="/placeholder.svg?height=600&width=800"
+                  src="/images/резидент.jpg"
                   alt="Luxury development"
                   fill
                   className="object-cover"
@@ -590,7 +590,7 @@ export default function HomePage() {
             <Card className="overflow-hidden border-none shadow-md">
               <div className="relative h-80">
                 <Image
-                  src="/placeholder.svg?height=600&width=800"
+                  src="/images/вила.jpg"
                   alt="Luxury development"
                   fill
                   className="object-cover"

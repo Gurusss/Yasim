@@ -466,7 +466,7 @@ export default function PropertyDetailPage() {
         {/* Image Gallery */}
         <section className="py-6 mb-8">
           <div className="container">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 h-[500px]">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 h-[600px] sm:h-[500px]">
               {/* Main Image or Video */}
               <div className="lg:col-span-3 relative overflow-hidden rounded-lg">
                 {isVideoPlaying && property.video ? (

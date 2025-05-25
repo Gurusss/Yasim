@@ -16,6 +16,7 @@ import { getAllProperties, filterProperties, Property } from "@/lib/utils/proper
 
 export default function PropertiesPage() {
   const { t, language } = useLanguage()
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedType, setSelectedType] = useState<string[]>([])
@@ -184,9 +185,82 @@ export default function PropertiesPage() {
                 {t("profile")}
               </Button>
             </Link>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="md:hidden p-2"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="28"
+                height="28"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="h-7 w-7"
+              >
+                <line x1="4" x2="20" y1="12" y2="12" />
+                <line x1="4" x2="20" y1="6" y2="6" />
+                <line x1="4" x2="20" y1="18" y2="18" />
+              </svg>
+            </Button>
           </div>
         </div>
       </header>
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in md:hidden">
+          <div className="bg-white p-4 rounded-lg shadow-lg border">
+            <nav className="grid gap-2">
+              <Link
+                href="/"
+                className="flex w-full items-center rounded-md p-2 text-sm font-medium hover:bg-gray-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t("home")}
+              </Link>
+              <Link
+                href="/properties"
+                className="flex w-full items-center rounded-md bg-gray-100 p-2 text-sm font-medium"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t("properties")}
+              </Link>
+              <Link
+                href="/new-developments"
+                className="flex w-full items-center rounded-md p-2 text-sm font-medium hover:bg-gray-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t("new-developments")}
+              </Link>
+              <Link
+                href="/investments"
+                className="flex w-full items-center rounded-md p-2 text-sm font-medium hover:bg-gray-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t("investments")}
+              </Link>
+              <Link
+                href="/about"
+                className="flex w-full items-center rounded-md p-2 text-sm font-medium hover:bg-gray-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t("about")}
+              </Link>
+              <Link
+                href="/contact"
+                className="flex w-full items-center rounded-md p-2 text-sm font-medium hover:bg-gray-100"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {t("contact")}
+              </Link>
+            </nav>
+          </div>
+        </div>
+      )}
       <main className="flex-1">
         <div className="container py-6 md:py-8">
           <div className="flex flex-col gap-4 md:flex-row md:items-start md:gap-8">
