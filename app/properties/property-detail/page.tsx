@@ -643,7 +643,7 @@ export default function PropertyDetailPage() {
               {/* Main Content */}
               <div className="lg:col-span-2 space-y-8">
                 {/* Description */}
-                <div className="mt-0 sm:mt-8">
+                <div>
                   <h2 className="text-2xl font-bold mb-4">{t("property-description")}</h2>
                   <p className="text-muted-foreground leading-relaxed mb-6">{property.description}</p>
 
@@ -693,12 +693,10 @@ export default function PropertyDetailPage() {
                         <span className="text-muted-foreground">{t("floor-area")}</span>
                         <span className="font-medium">{property.area}</span>
                       </div>
-                      {propertyId !== '1' && propertyId !== '2' && (
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">{t("land-area")}</span>
-                          <span className="font-medium">{property.landArea}</span>
-                        </div>
-                      )}
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">{t("land-area")}</span>
+                        <span className="font-medium">{property.landArea}</span>
+                      </div>
                     </div>
                     <div className="space-y-4">
                       <div className="flex justify-between">

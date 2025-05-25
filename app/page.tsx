@@ -26,7 +26,6 @@ import FeatureCard from "@/components/feature-card"
 import { useLanguage } from "@/contexts/language-context"
 import LanguageSwitcher from "@/components/language-switcher"
 import ProfileForm from "@/components/profile-form"
-import ContactFormDialog from "@/components/contact-form-dialog"
 import { useState } from "react"
 
 export default function HomePage() {
@@ -529,7 +528,7 @@ export default function HomePage() {
             <Card className="overflow-hidden border-none shadow-md">
               <div className="relative h-80">
                 <Image
-                  src="/images/резидент.jpg"
+                  src="/placeholder.svg?height=600&width=800"
                   alt="Luxury development"
                   fill
                   className="object-cover"
@@ -591,7 +590,7 @@ export default function HomePage() {
             <Card className="overflow-hidden border-none shadow-md">
               <div className="relative h-80">
                 <Image
-                  src="/images/вила.jpg"
+                  src="/placeholder.svg?height=600&width=800"
                   alt="Luxury development"
                   fill
                   className="object-cover"
@@ -701,23 +700,16 @@ export default function HomePage() {
                 <p className="text-primary-foreground/90">{t("ready-to-find-your-dream-property-subtitle")}</p>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-end">
-                <ContactFormDialog
-                  buttonText={t("contact-us")}
-                  buttonVariant="secondary"
-                  buttonSize="lg"
-                  title={t("contact-us")}
-                  description={t("ready-to-find-your-dream-property-subtitle")}
-                  defaultMessage={"Я хотел бы получить информацию о недвижимости."}
-                />
-                <ContactFormDialog
-                  buttonText={t("schedule-consultation")}
-                  buttonVariant="outline"
-                  buttonSize="lg"
-                  buttonClassName="border-primary text-primary hover:bg-primary/10"
-                  title={t("schedule-consultation")}
-                  description={t("ready-to-find-your-dream-property-subtitle")}
-                  defaultMessage={"Я хотел бы запланировать консультацию по вопросу недвижимости."}
-                />
+                <Button size="lg" variant="secondary">
+                  {t("contact-us")}
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary text-primary hover:bg-primary/10"
+                >
+                  {t("schedule-consultation")}
+                </Button>
               </div>
             </div>
           </div>

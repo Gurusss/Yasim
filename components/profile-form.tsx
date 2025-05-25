@@ -31,9 +31,8 @@ export default function ProfileForm() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full">
-          <User className="h-5 w-5" />
-          <span className="sr-only">{t("profile")}</span>
+        <Button variant="outline" size="sm">
+          {t("profile")}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
